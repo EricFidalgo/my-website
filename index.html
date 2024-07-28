@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FloridaBiz Scraper - Automate Your Business Research</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="appIcon4.png">
+    <style>
+
+html {
+    scroll-behavior: smooth;
+}
+
+:root {
+    --primary: #3b82f6;
+    --secondary: #0ea5e9;
+    --accent: #f59e0b;
+    --light: #f0f9ff;
+    --dark: #0f172a;
+    --white: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    overflow-x: hidden;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: var(--dark);
+    background-color: var(--light);
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+header {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    padding: 1rem 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, top 0.3s;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 1rem 0;
+    width: 100%;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    margin-left: 30px;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+nav a {
+    color: var(--dark);
+    text-decoration: none;
+    font-weight: 600;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+nav a:not(.get-started-btn)::after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: width 0.3s ease;
+}
+
+nav a:not(.get-started-btn):hover::after {
+    width: 100%;
+}
+
+.btn {
+    display: inline-block;
+    background: var(--primary);
+    color: var(--white);
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3);
+}
+
+.btn:hover {
+    background: var(--secondary);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(59, 130, 246, 0.4);
+}
+
+.btn-accent {
+    background: var(--accent);
+    box-shadow: 0 4px 6px rgba(245, 158, 11, 0.3);
+}
+
+.btn-accent:hover {
+    background: #e3a008;
+    box-shadow: 0 6px 12px rgba(245, 158, 11, 0.4);
+}
+
+#hero {
+    position: relative;
+    color: var(--white);
+    text-align: center;
+    padding: 120px 20px;
+    margin-top: 60px;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.hero-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translateX(-50%) translateY(-50%);
+    object-fit: cover;
+    opacity: 1;
+    transition: opacity 1s ease;
+}
+
+#hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.8), rgba(14, 165, 233, 0.6));
+    z-index: 1;
+}
+
+#hero .container {
+    position: relative;
+    z-index: 2;
+}
+
+#hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    font-weight: 800;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    animation: fadeInUp 1s ease-out;
+}
+
+#hero p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    font-weight: 400;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+    animation: fadeInUp 1s ease-out 0.3s;
+    animation-fill-mode: both;
+}
+
+#hero .btn {
+    font-size: 1.2rem;
+    padding: 15px 40px;
+    animation: fadeInUp 1s ease-out 0.6s;
+    animation-fill-mode: both;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+section {
+    padding: 80px 0;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 60px;
+    position: relative;
+    color: var(--primary);
+    font-weight: 800;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: var(--accent);
+    margin: 20px auto 0;
+    border-radius: 2px;
+}
+
+.feature-grid,
+.pricing-grid,
+.benefits-grid,
+.how-it-works-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.feature-box,
+.benefit-card,
+.pricing-box,
+.step {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 1;
+}
+
+.feature-box h3,
+.benefit-card h3,
+.pricing-box h3,
+.step h3 {
+    font-size: 1.2rem;
+    color: var(--primary);
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.feature-box p,
+.benefit-card p,
+.pricing-box p,
+.step p {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.feature-box i,
+.benefit-card i,
+.step i {
+    font-size: 2rem;
+    color: var(--accent);
+    margin-bottom: 20px;
+}
+
+.feature-box:hover,
+.benefit-card:hover,
+.pricing-box:hover,
+.step:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.1);
+}
+
+#pricing {
+    background: var(--light);
+    position: relative;
+    overflow: hidden;
+}
+
+#pricing::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(14, 165, 233, 0.1));
+    transform: skewY(-5deg);
+    transform-origin: top left;
+}
+
+.pricing-box .price {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 20px;
+}
+
+.pricing-box ul {
+    list-style: none;
+    margin-bottom: 30px;
+    padding: 0;
+}
+
+.pricing-box ul li {
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 25px;
+    text-align: left;
+}
+
+.pricing-box ul li::before {
+    content: '\f00c';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: var(--accent);
+    position: absolute;
+    left: 0;
+}
+
+.pricing-box .btn {
+    margin-top: auto;
+}
+
+#testimonials {
+    background: var(--white);
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+}
+
+#testimonials::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(14, 165, 233, 0.1));
+    transform: skewY(5deg);
+    transform-origin: top right;
+    z-index: -1;
+}
+
+.testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.testimonial-card {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.testimonial-card p {
+    font-style: italic;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+    padding: 0 20px;
+}
+
+.testimonial-card p::before,
+.testimonial-card p::after {
+    font-size: 3rem;
+    content: '"';
+    font-size: 4rem;
+    color: var(--accent);
+    opacity: 0.2;
+    position: absolute;
+    z-index: -1;
+}
+
+.testimonial-card p::before {
+    top: -20px;
+    left: -10px;
+}
+
+.testimonial-card p::after {
+    bottom: -40px;
+    right: -10px;
+}
+
+.testimonial-card .author {
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.testimonial-card img {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+    object-fit: cover;
+    border: 4px solid var(--accent);
+}
+
+img, video, iframe {
+    max-width: 100%;
+    height: auto;
+}
+
+footer {
+    background: var(--dark);
+    color: var(--white);
+    padding: 60px 0 20px;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+}
+
+.footer-section h3 {
+    margin-bottom: 20px;
+    color: var(--accent);
+    font-size: 1.4rem;
+}
+
+footer a {
+    color: var(--light);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: var(--accent);
+}
+
+.social-links a {
+    margin-right: 15px;
+    font-size: 1.4rem;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#how-it-works {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+#how-it-works .cta-button {
+    text-align: center;
+    margin-top: 40px;
+}
+
+#how-it-works::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    right: -50px;
+    height: 100px;
+    background: #ffffff;
+    transform: rotate(-2deg);
+}
+
+.how-it-works-steps {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.step {
+    flex: 1 1 200px;
+    max-width: 250px;
+    min-height: auto;
+}
+
+.step:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+.step i {
+    font-size: 3rem;
+    color: var(--primary);
+    margin-bottom: 20px;
+}
+
+.step h3 {
+    font-size: 1.5rem;
+    color: var (--dark);
+    margin-bottom: 15px;
+}
+
+#video-demo {
+    background: var(--white);
+    padding: 100px 0;
+    position: relative;
+}
+
+#video-demo::after {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    left: -50px;
+    right: -50px;
+    height: 100px;
+    background: #f0f9ff;
+    transform: rotate(2deg);
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    max-width: 800px;
+    margin: 0 auto;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+}
+
+#case-studies {
+    background: #f0f9ff;
+    padding: 100px 0;
+}
+
+.case-study {
+    background: var(--white);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    transition: all 0.3s ease;
+}
+
+.case-study:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+.case-study h3 {
+    color: var(--primary);
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+.case-study p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+#faq {
+    background: var(--white);
+    padding: 100px 0;
+}
+
+.faq-item {
+    background: #e0f2fe;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.faq-item:hover {
+    background: #e0f2fe;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.faq-question {
+    font-weight: 700;
+    font-size: 1.2rem;
+    padding: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #e0f2fe;
+    transition: background-color 0.3s ease;
+}
+
+.faq-question i {
+    transition: transform 0.3s ease;
+}
+
+.faq-question.active i {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, opacity 0.3s ease, margin 0.3s ease;
+    opacity: 0;
+    margin: 0 20px;
+}
+
+.faq-answer.show {
+    max-height: 1000px;
+    opacity: 1;
+    margin: 10px 20px;
+}
+
+.faq-answer p {
+    margin: 0;
+    line-height: 1.6;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform: translateY(10px);
+    opacity: 0;
+}
+
+.faq-answer.show p {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.get-started-fixed:hover {
+    background: var(--secondary);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(59, 130, 246, 0.4);
+}
+
+.nav-toggle {
+    display: none;
+}
+
+.get-started-fixed {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul li {
+        margin-left: 0;
+        margin-bottom: 10px;
+        width: 100%; /* Ensure full width for centering */
+        text-align: center; /* Center text within each item */
+    }
+
+    .btn {
+        font-size: 0.9rem;
+        padding: 10px 20px;
+        margin: 20px 0;
+    }
+
+    .feature-grid,
+    .benefits-grid,
+    .pricing-grid,
+    .how-it-works-steps,
+    .testimonial-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .how-it-works-steps {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .step {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    #hero h1 {
+        font-size: 2.5rem;
+    }
+
+    #hero p {
+        font-size: 1rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .get-started-fixed {
+        display: block;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: var(--primary);
+        color: var(--white);
+        padding: 12px 24px;
+        text-decoration: none;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+        font-weight: 600;
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3);
+        z-index: 1000;
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    .scrolling-down .get-started-fixed {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    header {
+        transition: transform 0.3s ease;
+    }
+
+    .scrolling-down header {
+        transform: translateY(-100%);
+    }
+
+    .nav-menu {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--light);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: max-height 0.3s ease, opacity 0.3s ease;
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+    }
+
+    .nav-menu.show {
+        max-height: 300px;
+        opacity: 1;
+    }
+
+    .nav-menu li {
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .nav-menu.show li {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .nav-toggle {
+        display: block;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 10px;
+        z-index: 1001;
+    }
+
+    .nav-toggle .bar {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background-color: var(--dark);
+        margin: 5px 0;
+        transition: all 0.3s ease;
+    }
+
+    .nav-toggle.active .bar:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+
+    .nav-toggle.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .nav-toggle.active .bar:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+    }
+}
+
+@media (max-width: 480px) {
+    #hero h1 {
+        font-size: 2rem;
+    }
+
+    #hero p {
+        font-size: 0.9rem;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    .feature-box,
+    .benefit-card,
+    .pricing-box,
+    .step {
+        padding: 20px;
+    }
+
+    .pricing-box .price {
+        font-size: 2rem;
+    }
+}
+
+@media (min-width: 769px) {
+    nav ul {
+        display: flex !important;
+        flex-direction: row;
+        align-items: center;
+        opacity: 1 !important;
+        max-height: none !important;
+    }
+
+    .nav-toggle {
+        display: none !important;
+    }
+
+    .nav-menu.show {
+        display: flex;
+        max-height: none;
+        opacity: 1;
+    }
+
+    .scrolling-down header {
+        transform: none !important;
+    }
+
+    nav ul li a:not(.get-started-btn):hover::after {
+        width: 100% !important;
+    }
+}
+
+    
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">FloridaBiz Scraper</div>
+            <button class="nav-toggle" aria-label="toggle navigation">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#why-use">Why Use</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#video-demo">Demo</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+            </ul>
+            <a href="#" class="btn get-started-btn">Get Started</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="hero-video-container">
+            <video id="hero-video-1" class="hero-video" muted playsinline>
+                <source src="video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <video id="hero-video-2" class="hero-video" muted playsinline style="opacity: 0;">
+                <source src="video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="container">
+            <h1>Automate Your Florida Business Research</h1>
+            <p>Effortlessly extract and manage LLC information from Florida's business registry, including sunbiz LLC, Florida LLC filing, and more.</p>
+            <a href="#" class="btn btn-accent">Start Free Trial</a>
+        </div>
+    </section>
+
+    <section id="features">
+        <div class="container">
+            <h2 class="section-title">Key Features</h2>
+            <div class="feature-grid">
+                <div class="feature-box">
+                    <i class="fas fa-search"></i>
+                    <h3>Advanced Web Scraping</h3>
+                    <p>Extract comprehensive business details from official sources, including setting up an LLC in Florida and sunbiz registration.</p>
+                </div>
+                <div class="feature-box">
+                    <i class="fas fa-file-excel"></i>
+                    <h3>Excel Integration</h3>
+                    <p>Output scraped data into Excel with customizable formatting, perfect for Florida LLC registration and sunbiz LLC search.</p>
+                </div>
+                <div class="feature-box">
+                    <i class="fas fa-users"></i>
+                    <h3>User-Friendly Interface</h3>
+                    <p>Intuitive GUI with multiple tabs for easy operation, ideal for those looking to register an LLC in Florida or form an LLC in Florida online.</p>
+                </div>
+                <div class="feature-box">
+                    <i class="fas fa-credit-card"></i>
+                    <h3>Subscription Management</h3>
+                    <p>Integrated Stripe payments for easy subscription handling, including services for Florida LLC formation and sunbiz business registration.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="why-use">
+        <div class="container">
+            <h2 class="section-title">Why Choose FloridaBiz Scraper</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <i class="fas fa-robot"></i>
+                    <h3>Automate Data Retrieval</h3>
+                    <p>Save hours of manual work by automating data retrieval for sunbiz LLC registration and Florida LLC filing.</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-database"></i>
+                    <h3>Process Thousands of LLCs</h3>
+                    <p>Handle extensive lists by processing thousands of LLCs at once, including sunbiz name search and Florida LLC cost estimation.</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Accurate Information</h3>
+                    <p>Obtain detailed and accurate information on registered agents and filing history, including apply for LLC in Florida and sunbiz register business.</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-file-excel"></i>
+                    <h3>Customized Reports</h3>
+                    <p>Generate Excel reports ready for analysis or presentation, perfect for Florida LLC formation and sunbiz business search.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing">
+        <div class="container">
+            <h2 class="section-title">Simple, Transparent Pricing</h2>
+            <div class="pricing-grid">
+                <div class="pricing-box">
+                    <h3>Free Trial</h3>
+                    <div class="price">3 Days</div>
+                    <ul>
+                        <li>Full access to all features</li>
+                        <li>No credit card required</li>
+                        <li>24/7 support for LLC formation and sunbiz registration queries</li>
+                    </ul>
+                    <a href="#" class="btn">Start Free Trial</a>
+                </div>
+                <div class="pricing-box">
+                    <h3>Monthly</h3>
+                    <div class="price">$50/month</div>
+                    <ul>
+                        <li>Full access to all features</li>
+                        <li>Unlimited searches for Florida LLC and sunbiz business registration</li>
+                        <li>24/7 support</li>
+                    </ul>
+                    <a href="#" class="btn">Choose Monthly</a>
+                </div>
+                <div class="pricing-box">
+                    <h3>Annual</h3>
+                    <div class="price">$450/year</div>
+                    <ul>
+                        <li>Full access to all features</li>
+                        <li>Unlimited searches for sunbiz LLC registration and Florida LLC formation</li>
+                        <li>24/7 support</li>
+                        <li>Save $150 compared to monthly</li>
+                    </ul>
+                    <a href="#" class="btn">Choose Annual</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="how-it-works-steps">
+                <div class="step">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <h3>1. Sign Up</h3>
+                    <p>Create your account and choose a plan to start your Florida LLC registration process.</p>
+                </div>
+                <div class="step">
+                    <i class="fas fa-upload"></i>
+                    <h3>2. Upload Data</h3>
+                    <p>Input your list of Florida LLCs or sunbiz business entities.</p>
+                </div>
+                <div class="step">
+                    <i class="fas fa-cogs"></i>
+                    <h3>3. Process</h3>
+                    <p>Our system scrapes and organizes the data, making it easy to set up an LLC in Florida online.</p>
+                </div>
+                <div class="step">
+                    <i class="fas fa-file-download"></i>
+                    <h3>4. Download Results</h3>
+                    <p>Get your comprehensive Excel report, ready for analysis or presentation, including sunbiz search results and Florida LLC formation details.</p>
+                </div>
+            </div>
+            <div class="cta-button">
+                <a href="#" class="btn btn-accent">Start Your Free Trial Now</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="video-demo">
+        <div class="container">
+            <h2 class="section-title">See FloridaBiz Scraper in Action</h2>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <section id="case-studies">
+        <div class="container">
+            <h2 class="section-title">Case Studies</h2>
+            <div class="case-study">
+                <h3>Legal Firm Streamlines Research</h3>
+                <p>A prominent Florida law firm reduced their research time by 75% using FloridaBiz Scraper, allowing them to take on more clients and increase revenue by managing their sunbiz LLC registration efficiently.</p>
+            </div>
+            <div class="case-study">
+                <h3>Real Estate Company Expands Market Reach</h3>
+                <p>A real estate investment company used our tool to identify potential acquisition targets, resulting in a 30% increase in their property portfolio within 6 months by utilizing sunbiz business search and Florida LLC formation tools.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <div class="faq-question">Is it legal to scrape data from the Florida business registry?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">Yes, the information we scrape is publicly available. Our service simply automates the process of collecting this data, including sunbiz LLC registration and Florida LLC filing.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">How often is the data updated?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">Our system pulls data directly from the Florida business registry in real-time, ensuring you always have the most up-to-date information for your sunbiz registration and Florida LLC formation.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Can I export the data to other formats besides Excel?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">Currently, we support Excel exports. If you need other formats, please contact our support team to discuss your requirements for sunbiz business registration and Florida LLC formation.</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our Clients Say</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <img src="testimonial1.jpg" alt="Client Image">
+                    <p>"FloridaBiz Scraper has revolutionized our research process. It's a game-changer for our business, especially for managing sunbiz LLC registration and Florida LLC filing!"</p>
+                    <div class="author">- John D., Business Analyst</div>
+                </div>
+                <div class="testimonial-card">
+                    <img src="testimonial2.jpg" alt="Client Image">
+                    <p>"The time we've saved using this tool is incredible. Highly recommended for anyone dealing with Florida LLC data and sunbiz business registration."</p>
+                    <div class="author">- Tommy N., Legal Researcher</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Us</h3>
+                    <p>FloridaBiz Scraper is your trusted partner for automated business research in Florida, specializing in sunbiz LLC registration and Florida LLC filing.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#privacy-policy">Privacy Policy</a></li>
+                        <li><a href="#terms-of-service">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p>Email: info@floridabizscraper.com</p>
+                    <p>Phone: (555) 123-4567</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 FloridaBiz Scraper. All rights reserved. Specializing in sunbiz LLC registration and Florida LLC formation.</p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="#" class="btn get-started-fixed">Get Started</a>
+
+    <script>
+        document.querySelectorAll('.faq-item').forEach(item => {
+            const question = item.querySelector('.faq-question');
+            const answer = item.querySelector('.faq-answer');
+            const icon = question.querySelector('i');
+
+            question.addEventListener('click', () => {
+                const isOpen = answer.classList.contains('show');
+
+                document.querySelectorAll('.faq-answer.show').forEach(openAnswer => {
+                    if (openAnswer !== answer) {
+                        closeAnswer(openAnswer);
+                    }
+                });
+
+                if (isOpen) {
+                    closeAnswer(answer);
+                } else {
+                    openAnswer(answer);
+                }
+            });
+
+            function openAnswer(answerElement) {
+                answerElement.classList.add('show');
+                answerElement.style.maxHeight = answerElement.scrollHeight + "px";
+                answerElement.closest('.faq-item').querySelector('.faq-question').classList.add('active');
+                answerElement.closest('.faq-item').querySelector('i').style.transform = 'rotate(180deg)';
+            }
+
+            function closeAnswer(answerElement) {
+                answerElement.classList.remove('show');
+                answerElement.style.maxHeight = null;
+                answerElement.closest('.faq-item').querySelector('.faq-question').classList.remove('active');
+                answerElement.closest('.faq-item').querySelector('i').style.transform = 'rotate(0deg)';
+            }
+        });
+
+
+
+
+
+            document.addEventListener('DOMContentLoaded', function() {
+        const links = document.querySelectorAll('nav ul li a[href^="#"]');
+
+        for (const link of links) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+
+                window.scrollTo({
+                    top: targetElement.offsetTop - 60, // Adjust the offset for the fixed header
+                    behavior: 'smooth'
+                });
+            });
+        }
+
+        const video1 = document.getElementById('hero-video-1');
+        const video2 = document.getElementById('hero-video-2');
+
+        video1.style.opacity = 1;
+        video2.style.opacity = 0;
+        video1.style.transition = 'none';
+        video2.style.transition = 'none';
+
+        function startVideoLoop() {
+            video1.play();
+            video1.addEventListener('ended', function() {
+                video2.currentTime = 0;
+                video2.play();
+                video1.style.transition = 'opacity 1s ease';
+                video2.style.transition = 'opacity 1s ease';
+                fadeTransition(video1, video2);
+            }, { once: true });
+        }
+
+        function fadeTransition(fadeOutVideo, fadeInVideo) {
+            fadeOutVideo.style.opacity = 1;
+            fadeInVideo.style.opacity = 0;
+
+            // Start the transition
+            fadeOutVideo.style.opacity = 0;
+            fadeInVideo.style.opacity = 1;
+
+            fadeInVideo.addEventListener('transitionend', function handleTransitionEnd() {
+                fadeInVideo.removeEventListener('transitionend', handleTransitionEnd);
+                fadeOutVideo.currentTime = 0;
+                fadeOutVideo.style.transition = 'none';
+                fadeInVideo.style.transition = 'none';
+                setTimeout(() => {
+                    fadeOutVideo.style.transition = 'opacity 1s ease';
+                    fadeInVideo.style.transition = 'opacity 1s ease';
+                    startNextVideo(fadeInVideo, fadeOutVideo);
+                }, 1000); // Wait a bit before starting the next transition
+            });
+        }
+
+        function startNextVideo(currentVideo, nextVideo) {
+            currentVideo.play();
+            currentVideo.addEventListener('ended', function() {
+                nextVideo.currentTime = 0;
+                nextVideo.play();
+                fadeTransition(currentVideo, nextVideo);
+            }, { once: true });
+        }
+
+        video1.addEventListener('loadedmetadata', startVideoLoop);
+
+        video1.addEventListener('error', function(e) {
+            console.error('Error loading video 1:', e);
+        });
+
+        video2.addEventListener('error', function(e) {
+            console.error('Error loading video 2:', e);
+        });
+    });
+
+
+
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    let lastScrollTop = 0;
+    const scrollThreshold = 100;
+
+    navToggle.addEventListener('click', function() {
+        this.classList.toggle('active');
+        navMenu.classList.toggle('show');
+    });
+
+    window.addEventListener('scroll', function() {
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        if (window.innerWidth < 769) {
+            if (scrollTop > lastScrollTop && scrollTop > scrollThreshold) {
+                document.body.classList.add('scrolling-down');
+                navToggle.style.display = 'none';
+                navMenu.classList.remove('show');
+                navToggle.classList.remove('active');
+            } else {
+                document.body.classList.remove('scrolling-down');
+                navToggle.style.display = 'block';
+            }
+        }
+        lastScrollTop = scrollTop;
+    });
+
+    navMenu.addEventListener('click', function(e) {
+        if (e.target.tagName === 'A' && window.innerWidth < 769) {
+            navToggle.classList.remove('active');
+            navMenu.classList.remove('show');
+        }
+    });
+
+    window.addEventListener('resize', function() {
+        if (window.innerWidth >= 769) {
+            navToggle.classList.remove('active');
+            navMenu.classList.remove('show');
+            // Remove any inline styles that might have been added
+            navMenu.querySelectorAll('li a').forEach(link => {
+                link.style.removeProperty('all');
+            });
+        }
+    });
+});
+
+    </script>
+</body>
+</html>
