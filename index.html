@@ -11,6 +11,7 @@
 
 html {
     scroll-behavior: smooth;
+    background-color: var(--white); /* Ensure the background is white */
 }
 
 :root {
@@ -30,13 +31,13 @@ html {
 
 html, body {
     overflow-x: hidden;
+    background-color: var(--white); /* Ensure the background is white */
 }
 
 body {
     font-family: 'Poppins', sans-serif;
     line-height: 1.6;
     color: var(--dark);
-    background-color: var(--light);
 }
 
 .container {
@@ -691,9 +692,6 @@ footer a:hover {
 }
 
 @media (max-width: 768px) {
-    .container {
-        margin: 10px auto 0px;
-    }
     nav ul {
         flex-direction: column;
         align-items: center;
@@ -749,7 +747,7 @@ footer a:hover {
 
     .nav-menu {
         padding-top: 10px;
-        background-color: var(--white); 
+        background-color: red; 
         display: flex;
         flex-direction: column;
         position: absolute;
