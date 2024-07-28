@@ -47,8 +47,7 @@ body {
 }
 
 header {
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(10px);
+    background: var(--white);
     padding: 1rem 0;
     position: fixed;
     width: 100%;
@@ -61,7 +60,6 @@ header {
 /* Media query for mobile devices */
 @media (max-width: 768px) {
     header {
-        background: #ffffff !important; /* Set the background to solid white */
         padding-top: env(safe-area-inset-top); /* Ensure the background covers the notch area on mobile devices */
     }
 }
@@ -553,7 +551,7 @@ footer a:hover {
 
 .step h3 {
     font-size: 1.5rem;
-    color: var (--dark);
+    color: var(--dark);
     margin-bottom: 15px;
 }
 
@@ -688,21 +686,14 @@ footer a:hover {
     opacity: 1;
 }
 
-.get-started-fixed:hover {
-    background: var(--secondary);
-    transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(59, 130, 246, 0.4);
-}
-
 .nav-toggle {
     display: none;
 }
 
-.get-started-fixed {
-    display: none;
-}
-
 @media (max-width: 768px) {
+    .container {
+        margin: 10px auto 0px;
+    }
     nav ul {
         flex-direction: column;
         align-items: center;
@@ -752,44 +743,13 @@ footer a:hover {
         font-size: 2rem;
     }
 
-    .get-started-fixed {
-        display: block;
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background: var(--primary);
-        color: var(--white);
-        padding: 12px 24px;
-        text-decoration: none;
-        border-radius: 50px;
-        transition: all 0.3s ease;
-        font-weight: 600;
-        font-size: 1rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3);
-        z-index: 1000;
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    .scrolling-down .get-started-fixed {
-        display: block;
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    header {
-        transition: transform 0.3s ease;
-    }
-
     .scrolling-down header {
         transform: translateY(-100%);
     }
 
     .nav-menu {
         padding-top: 10px;
-        background-color: var(--light); 
+        background-color: var(--white); 
         display: flex;
         flex-direction: column;
         position: absolute;
@@ -1179,8 +1139,6 @@ footer a:hover {
         </div>
     </footer>
 
-    <a href="#" class="btn get-started-fixed">Get Started</a>
-
     <script>
         document.querySelectorAll('.faq-item').forEach(item => {
             const question = item.querySelector('.faq-question');
@@ -1218,135 +1176,127 @@ footer a:hover {
             }
         });
 
+        document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('nav ul li a[href^="#"]');
 
+            for (const link of links) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
 
-
-
-            document.addEventListener('DOMContentLoaded', function() {
-        const links = document.querySelectorAll('nav ul li a[href^="#"]');
-
-        for (const link of links) {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-
-                window.scrollTo({
-                    top: targetElement.offsetTop - 60, // Adjust the offset for the fixed header
-                    behavior: 'smooth'
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 60, // Adjust the offset for the fixed header
+                        behavior: 'smooth'
+                    });
                 });
+            }
+
+            const video1 = document.getElementById('hero-video-1');
+            const video2 = document.getElementById('hero-video-2');
+
+            video1.style.opacity = 1;
+            video2.style.opacity = 0;
+            video1.style.transition = 'none';
+            video2.style.transition = 'none';
+
+            function startVideoLoop() {
+                video1.play();
+                video1.addEventListener('ended', function() {
+                    video2.currentTime = 0;
+                    video2.play();
+                    video1.style.transition = 'opacity 1s ease';
+                    video2.style.transition = 'opacity 1s ease';
+                    fadeTransition(video1, video2);
+                }, { once: true });
+            }
+
+            function fadeTransition(fadeOutVideo, fadeInVideo) {
+                fadeOutVideo.style.opacity = 1;
+                fadeInVideo.style.opacity = 0;
+
+                // Start the transition
+                fadeOutVideo.style.opacity = 0;
+                fadeInVideo.style.opacity = 1;
+
+                fadeInVideo.addEventListener('transitionend', function handleTransitionEnd() {
+                    fadeInVideo.removeEventListener('transitionend', handleTransitionEnd);
+                    fadeOutVideo.currentTime = 0;
+                    fadeOutVideo.style.transition = 'none';
+                    fadeInVideo.style.transition = 'none';
+                    setTimeout(() => {
+                        fadeOutVideo.style.transition = 'opacity 1s ease';
+                        fadeInVideo.style.transition = 'opacity 1s ease';
+                        startNextVideo(fadeInVideo, fadeOutVideo);
+                    }, 1000); // Wait a bit before starting the next transition
+                });
+            }
+
+            function startNextVideo(currentVideo, nextVideo) {
+                currentVideo.play();
+                currentVideo.addEventListener('ended', function() {
+                    nextVideo.currentTime = 0;
+                    nextVideo.play();
+                    fadeTransition(currentVideo, nextVideo);
+                }, { once: true });
+            }
+
+            video1.addEventListener('loadedmetadata', startVideoLoop);
+
+            video1.addEventListener('error', function(e) {
+                console.error('Error loading video 1:', e);
             });
-        }
 
-        const video1 = document.getElementById('hero-video-1');
-        const video2 = document.getElementById('hero-video-2');
-
-        video1.style.opacity = 1;
-        video2.style.opacity = 0;
-        video1.style.transition = 'none';
-        video2.style.transition = 'none';
-
-        function startVideoLoop() {
-            video1.play();
-            video1.addEventListener('ended', function() {
-                video2.currentTime = 0;
-                video2.play();
-                video1.style.transition = 'opacity 1s ease';
-                video2.style.transition = 'opacity 1s ease';
-                fadeTransition(video1, video2);
-            }, { once: true });
-        }
-
-        function fadeTransition(fadeOutVideo, fadeInVideo) {
-            fadeOutVideo.style.opacity = 1;
-            fadeInVideo.style.opacity = 0;
-
-            // Start the transition
-            fadeOutVideo.style.opacity = 0;
-            fadeInVideo.style.opacity = 1;
-
-            fadeInVideo.addEventListener('transitionend', function handleTransitionEnd() {
-                fadeInVideo.removeEventListener('transitionend', handleTransitionEnd);
-                fadeOutVideo.currentTime = 0;
-                fadeOutVideo.style.transition = 'none';
-                fadeInVideo.style.transition = 'none';
-                setTimeout(() => {
-                    fadeOutVideo.style.transition = 'opacity 1s ease';
-                    fadeInVideo.style.transition = 'opacity 1s ease';
-                    startNextVideo(fadeInVideo, fadeOutVideo);
-                }, 1000); // Wait a bit before starting the next transition
+            video2.addEventListener('error', function(e) {
+                console.error('Error loading video 2:', e);
             });
-        }
-
-        function startNextVideo(currentVideo, nextVideo) {
-            currentVideo.play();
-            currentVideo.addEventListener('ended', function() {
-                nextVideo.currentTime = 0;
-                nextVideo.play();
-                fadeTransition(currentVideo, nextVideo);
-            }, { once: true });
-        }
-
-        video1.addEventListener('loadedmetadata', startVideoLoop);
-
-        video1.addEventListener('error', function(e) {
-            console.error('Error loading video 1:', e);
         });
-
-        video2.addEventListener('error', function(e) {
-            console.error('Error loading video 2:', e);
-        });
-    });
-
-
-
-
 
         document.addEventListener('DOMContentLoaded', function() {
-    const navToggle = document.querySelector('.nav-toggle');
-    const navMenu = document.querySelector('.nav-menu');
-    let lastScrollTop = 0;
-    const scrollThreshold = 100;
+            const navToggle = document.querySelector('.nav-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            let lastScrollTop = 0;
+            const scrollThreshold = 100;
 
-    navToggle.addEventListener('click', function() {
-        this.classList.toggle('active');
-        navMenu.classList.toggle('show');
-    });
-
-    window.addEventListener('scroll', function() {
-        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        if (window.innerWidth < 769) {
-            if (scrollTop > lastScrollTop && scrollTop > scrollThreshold) {
-                document.body.classList.add('scrolling-down');
-                navToggle.style.display = 'none';
-                navMenu.classList.remove('show');
-                navToggle.classList.remove('active');
-            } else {
-                document.body.classList.remove('scrolling-down');
-                navToggle.style.display = 'block';
-            }
-        }
-        lastScrollTop = scrollTop;
-    });
-
-    navMenu.addEventListener('click', function(e) {
-        if (e.target.tagName === 'A' && window.innerWidth < 769) {
-            navToggle.classList.remove('active');
-            navMenu.classList.remove('show');
-        }
-    });
-
-    window.addEventListener('resize', function() {
-        if (window.innerWidth >= 769) {
-            navToggle.classList.remove('active');
-            navMenu.classList.remove('show');
-            // Remove any inline styles that might have been added
-            navMenu.querySelectorAll('li a').forEach(link => {
-                link.style.removeProperty('all');
+            navToggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+                navMenu.classList.toggle('show');
             });
-        }
-    });
-});
+
+            window.addEventListener('scroll', function() {
+                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                if (window.innerWidth < 769) {
+                    if (scrollTop > lastScrollTop && scrollTop > scrollThreshold) {
+                        document.body.classList.add('scrolling-down');
+                        navToggle.style.display = 'none';
+                        navMenu.classList.remove('show');
+                        navToggle.classList.remove('active');
+                    } else {
+                        document.body.classList.remove('scrolling-down');
+                        navToggle.style.display = 'block';
+                    }
+                }
+                lastScrollTop = scrollTop;
+            });
+
+            navMenu.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A' && window.innerWidth < 769) {
+                    navToggle.classList.remove('active');
+                    navMenu.classList.remove('show');
+                }
+            });
+
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 769) {
+                    navToggle.classList.remove('active');
+                    navMenu.classList.remove('show');
+                    // Remove any inline styles that might have been added
+                    navMenu.querySelectorAll('li a').forEach(link => {
+                        link.style.removeProperty('all');
+                    });
+                }
+            });
+        });
 
     </script>
 </body>
