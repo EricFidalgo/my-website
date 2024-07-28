@@ -58,6 +58,14 @@ header {
     transition: transform 0.3s ease, top 0.3s;
 }
 
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+    header {
+        background: #ffffff; /* Set the background to solid white */
+        padding-top: env(safe-area-inset-top); /* Ensure the background covers the notch area on mobile devices */
+    }
+}
+
 .logo {
     font-size: 1.8rem;
     font-weight: 800;
@@ -695,13 +703,6 @@ footer a:hover {
 }
 
 @media (max-width: 768px) {
-
-    header {
-        background: #ffffff !important; /* Set the background to solid white */
-    }
-}
-
-
     nav ul {
         flex-direction: column;
         align-items: center;
@@ -846,6 +847,7 @@ footer a:hover {
     .nav-toggle.active .bar:nth-child(3) {
         transform: rotate(45deg) translate(-5px, -6px);
     }
+}
 
 @media (max-width: 480px) {
     #hero h1 {
@@ -900,7 +902,6 @@ footer a:hover {
     }
 }
 
-    
     </style>
 </head>
 <body>
