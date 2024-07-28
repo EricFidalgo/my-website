@@ -61,7 +61,7 @@ header {
 /* Media query for mobile devices */
 @media (max-width: 768px) {
     header {
-        background: #ffffff; /* Set the background to solid white */
+        background: #ffffff !important; /* Set the background to solid white */
         padding-top: env(safe-area-inset-top); /* Ensure the background covers the notch area on mobile devices */
     }
 }
@@ -788,18 +788,27 @@ footer a:hover {
     }
 
     .nav-menu {
+        padding-top: 10px;
+        background-color: var(--light); 
         display: flex;
         flex-direction: column;
         position: absolute;
         top: 100%;
         left: 0;
         width: 100%;
-        background-color: var(--light);
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         transition: max-height 0.3s ease, opacity 0.3s ease;
         max-height: 0;
         opacity: 0;
         overflow: hidden;
+    }
+
+    .nav-menu li a {
+        color: var(--dark); /* Ensure text is visible on the light background */
+    }
+
+    .nav-menu {
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
     }
 
     .nav-menu.show {
