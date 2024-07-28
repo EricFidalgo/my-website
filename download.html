@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FloridaBiz Scraper - Download</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="appIcon4.png">
+    <style>
+
+html {
+    scroll-behavior: smooth;
+    background-color: var(--white);
+}
+
+:root {
+    --primary: #3b82f6;
+    --secondary: #0ea5e9;
+    --accent: #f59e0b;
+    --light: #f0f9ff;
+    --dark: #0f172a;
+    --white: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    overflow-x: hidden;
+    background-color: var(--white);
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: var(--dark);
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+header {
+    background: var(--white);
+    padding: 1rem 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, top 0.3s;
+}
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+    header {
+        padding-top: env(safe-area-inset-top);
+    }
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 1rem 0;
+    width: 100%;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    margin-left: 30px;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+nav a {
+    color: var(--dark);
+    text-decoration: none;
+    font-weight: 600;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+nav a:not(.download-btn)::after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: width 0.3s ease;
+}
+
+nav a:not(.download-btn):hover::after {
+    width: 100%;
+}
+
+.btn {
+    display: inline-block;
+    background: var(--primary);
+    color: var(--white);
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3);
+}
+
+.btn:hover {
+    background: var(--secondary);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(59, 130, 246, 0.4);
+}
+
+.download-section {
+    text-align: center;
+    padding: 150px 20px 80px;
+}
+
+.download-section h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.download-section p {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    font-weight: 400;
+    color: var(--dark);
+}
+
+.download-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.download-buttons .btn {
+    font-size: 1.2rem;
+    padding: 15px 40px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.download-buttons .btn i {
+    font-size: 1.5rem;
+}
+
+footer {
+    background: var(--dark);
+    color: var(--white);
+    padding: 60px 0 20px;
+    text-align: center;
+}
+
+footer p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">FloridaBiz Scraper</div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="index.html#why-use">Why Use</a></li>
+                <li><a href="index.html#pricing">Pricing</a></li>
+                <li><a href="index.html#video-demo">Demo</a></li>
+                <li><a href="index.html#testimonials">Testimonials</a></li>
+            </ul>
+            <a href="#" class="btn download-btn">Download</a>
+        </nav>
+    </header>
+
+    <section class="download-section">
+        <div class="container">
+            <h1>Download FloridaBiz Scraper</h1>
+            <p>Get started with FloridaBiz Scraper by downloading the installation file for your operating system. Available for both Windows and Mac.</p>
+            <div class="download-buttons">
+                <a href="path-to-your-windows-mac-installer.exe" class="btn">
+                    <i class="fas fa-download"></i> Download for Windows/Mac
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 FloridaBiz Scraper. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
