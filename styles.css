@@ -44,11 +44,15 @@ header {
   top: 0;
   z-index: 1000;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, top 0.3s;
+  transition: transform 0.3s ease;
 }
 
 header.scrolling-down {
   transform: translateY(-100%);
+}
+
+.download-btn {
+  margin-left: auto; /* Push to the right */
 }
 
 header.scrolling-up {
@@ -271,6 +275,11 @@ footer a:hover {
 }
 
 @media (min-width: 769px) {
+
+  .download-btn {
+    position: static;
+    transform: none;
+}
   .nav-menu {
       display: flex !important;
       flex-direction: row;
