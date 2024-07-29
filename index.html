@@ -508,6 +508,138 @@ img, video, iframe {
     opacity: 1;
 }
 
+
+
+.cta-section {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: var(--white);
+    padding: 80px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-section::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    right: -50px;
+    height: 100px;
+    background: #ffffff;
+    transform: rotate(-2deg);
+}
+
+.cta-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    color: var(--white);
+}
+
+.cta-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cta-benefits {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.benefit-item {
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+}
+
+.benefit-item i {
+    font-size: 1.5rem;
+    margin-right: 10px;
+    color: var(--accent);
+}
+
+.cta-offer {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.cta-offer h3 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.cta-offer p {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+.btn-cta {
+    font-size: 1.2rem;
+    padding: 15px 40px;
+    background: var(--accent);
+    color: var(--white);
+    border: none;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    margin-bottom: 30px;
+}
+
+.btn-cta:hover {
+    background: #e3a008;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(245, 158, 11, 0.4);
+}
+
+.cta-testimonial {
+    font-style: italic;
+    max-width: 600px;
+    margin: 0 auto;
+    opacity: 0.9;
+}
+
+.cta-testimonial p {
+    margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+    .cta-title {
+        font-size: 2rem;
+    }
+
+    .cta-subtitle {
+        font-size: 1rem;
+    }
+
+    .cta-benefits {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .benefit-item {
+        justify-content: center;
+    }
+
+    .cta-offer h3 {
+        font-size: 1.5rem;
+    }
+
+    .btn-cta {
+        font-size: 1rem;
+        padding: 12px 30px;
+    }
+}
+
 @media (max-width: 768px) {
     .feature-grid,
     .benefits-grid,
@@ -594,7 +726,7 @@ img, video, iframe {
     </style>
 </head>
 <body>
-    <header>
+     <header>
         <nav class="container">
             <div class="logo">FloridaBiz Scraper</div>
             <button class="nav-toggle" aria-label="toggle navigation">
@@ -603,14 +735,14 @@ img, video, iframe {
                 <span class="bar"></span>
             </button>
             <ul class="nav-menu">
-                <li><a href="#hero">Home</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#why-use">Why Use</a></li>
-                <li><a href="#pricing">Pricing</a></li>
-                <li><a href="#video-demo">Demo</a></li>
-                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="index.html#why-use">Why Use</a></li>
+                <li><a href="index.html#pricing">Pricing</a></li>
+                <li><a href="index.html#video-demo">Demo</a></li>
+                <li><a href="index.html#testimonials">Testimonials</a></li>
             </ul>
-            <a href="download.html" class="btn download-btn">Download Now</a>
+            <a href="download.html" class="btn download-btn">Start Free Trial</a>
         </nav>
     </header>
 
@@ -627,67 +759,126 @@ img, video, iframe {
             </video>
         </div>
         <div class="container">
-            <h1>Automate Your Florida Business Research</h1>
-            <p>Effortlessly extract and manage LLC information from Florida's business registry, including sunbiz LLC, Florida LLC filing, and more.</p>
-            <a href="download.html" class="btn btn-accent">Start Free Trial</a>
+            <h1>Unlock Florida LLC Data in Seconds</h1>
+            <p>FloridaBiz Scraper: The ultimate tool for real estate professionals, legal teams, and business researchers. Automate your LLC information gathering from SunBiz and transform hours of work into minutes.</p>
+            <a href="download.html" class="btn btn-accent">Start Your 3-Day Free Trial</a>
+        </div>
+    </section>
+
+
+
+    <section id="why-use">
+        <div class="container">
+            <h2 class="section-title">Why FloridaBiz Scraper is a Game-Changer</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>Save 90% of Your Research Time</h3>
+                    <p>Turn hours of manual searching into minutes of automated efficiency. Focus on analyzing data, not collecting it.</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Boost Your Productivity</h3>
+                    <p>Handle more clients, close more deals, and grow your business with our high-speed data retrieval.</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-user-tie"></i>
+                    <h3>Uncover Hidden Connections</h3>
+                    <p>Our unique nested LLC search reveals the individuals behind complex business structures.</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-desktop"></i>
+                    <h3>User-Friendly Interface</h3>
+                    <p>No tech expertise required. Our intuitive design makes LLC research accessible to everyone.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+    <section id="how-it-works">
+        <div class="container">
+            <h2 class="section-title">Simple Steps to LLC Data Mastery</h2>
+            <div class="how-it-works-steps">
+                <div class="step">
+                    <i class="fas fa-upload"></i>
+                    <h3>1. Upload Your LLC List</h3>
+                    <p>Simply input your Excel file with Florida LLC names.</p>
+                </div>
+                <div class="step">
+                    <i class="fas fa-sliders-h"></i>
+                    <h3>2. Customize Your Search</h3>
+                    <p>Choose your preferred output formats and data fields.</p>
+                </div>
+                <div class="step">
+                    <i class="fas fa-magic"></i>
+                    <h3>3. Let the Magic Happen</h3>
+                    <p>Our powerful engine scrapes and organizes the data in minutes.</p>
+                </div>
+                <div class="step">
+                    <i class="fas fa-file-download"></i>
+                    <h3>4. Download Your Results</h3>
+                    <p>Get a comprehensive, ready-to-use Excel report.</p>
+                </div>
+            </div>
+            <div class="cta-button">
+                <a href="download.html" class="btn btn-accent">Experience the Power - Start Your Free Trial</a>
+            </div>
         </div>
     </section>
 
     <section id="features">
         <div class="container">
-            <h2 class="section-title">Key Features</h2>
+            <h2 class="section-title">Powerful Features That Save You Time</h2>
             <div class="feature-grid">
                 <div class="feature-box">
                     <i class="fas fa-search"></i>
-                    <h3>Advanced Web Scraping</h3>
-                    <p>Extract comprehensive business details from official sources, including setting up an LLC in Florida and sunbiz registration.</p>
+                    <h3>Intelligent Multi-LLC Search</h3>
+                    <p>Our advanced algorithm digs deep, uncovering Authorized Persons behind nested LLCs until it finds the real individuals. No more manual searches!</p>
                 </div>
                 <div class="feature-box">
                     <i class="fas fa-file-excel"></i>
-                    <h3>Excel Integration</h3>
-                    <p>Output scraped data into Excel with customizable formatting, perfect for Florida LLC registration and sunbiz LLC search.</p>
+                    <h3>Custom Excel Reports</h3>
+                    <p>Generate beautifully formatted Excel reports with just a click. Customize data fields, name formats, and address layouts to suit your needs.</p>
                 </div>
                 <div class="feature-box">
-                    <i class="fas fa-users"></i>
-                    <h3>User-Friendly Interface</h3>
-                    <p>Intuitive GUI with multiple tabs for easy operation, ideal for those looking to register an LLC in Florida or form an LLC in Florida online.</p>
+                    <i class="fas fa-bolt"></i>
+                    <h3>Lightning-Fast Batch Processing</h3>
+                    <p>Process thousands of LLC searches simultaneously. What used to take days now takes minutes.</p>
                 </div>
                 <div class="feature-box">
-                    <i class="fas fa-credit-card"></i>
-                    <h3>Subscription Management</h3>
-                    <p>Integrated Stripe payments for easy subscription handling, including services for Florida LLC formation and sunbiz business registration.</p>
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Reliable &amp; Up-to-Date</h3>
+                    <p>Access the latest data directly from SunBiz. Our tool ensures you're working with the most current LLC information available.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="why-use">
+
+    <section id="video-demo">
         <div class="container">
-            <h2 class="section-title">Why Choose FloridaBiz Scraper</h2>
-            <div class="benefits-grid">
-                <div class="benefit-card">
-                    <i class="fas fa-robot"></i>
-                    <h3>Automate Data Retrieval</h3>
-                    <p>Save hours of manual work by automating data retrieval for sunbiz LLC registration and Florida LLC filing.</p>
-                </div>
-                <div class="benefit-card">
-                    <i class="fas fa-database"></i>
-                    <h3>Process Thousands of LLCs</h3>
-                    <p>Handle extensive lists by processing thousands of LLCs at once, including sunbiz name search and Florida LLC cost estimation.</p>
-                </div>
-                <div class="benefit-card">
-                    <i class="fas fa-check-circle"></i>
-                    <h3>Accurate Information</h3>
-                    <p>Obtain detailed and accurate information on registered agents and filing history, including apply for LLC in Florida and sunbiz register business.</p>
-                </div>
-                <div class="benefit-card">
-                    <i class="fas fa-file-excel"></i>
-                    <h3>Customized Reports</h3>
-                    <p>Generate Excel reports ready for analysis or presentation, perfect for Florida LLC formation and sunbiz business search.</p>
-                </div>
+            <h2 class="section-title">See FloridaBiz Scraper in Action</h2>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
     </section>
+
+    <section id="case-studies">
+        <div class="container">
+            <h2 class="section-title">Case Studies</h2>
+            <div class="case-study">
+                <h3>Legal Firm Streamlines Research</h3>
+                <p>A prominent Florida law firm reduced their research time by 75% using FloridaBiz Scraper, allowing them to take on more clients and increase revenue by managing their sunbiz LLC registration efficiently.</p>
+            </div>
+            <div class="case-study">
+                <h3>Real Estate Company Expands Market Reach</h3>
+                <p>A real estate investment company used our tool to identify potential acquisition targets, resulting in a 30% increase in their property portfolio within 6 months by utilizing sunbiz business search and Florida LLC formation tools.</p>
+            </div>
+        </div>
+    </section>
+
 
     <section id="pricing">
         <div class="container">
@@ -728,83 +919,6 @@ img, video, iframe {
         </div>
     </section>
 
-    <section id="how-it-works">
-        <div class="container">
-            <h2 class="section-title">How It Works</h2>
-            <div class="how-it-works-steps">
-                <div class="step">
-                    <i class="fas fa-sign-in-alt"></i>
-                    <h3>1. Sign Up</h3>
-                    <p>Create your account and choose a plan to start your Florida LLC registration process.</p>
-                </div>
-                <div class="step">
-                    <i class="fas fa-upload"></i>
-                    <h3>2. Upload Data</h3>
-                    <p>Input your list of Florida LLCs or sunbiz business entities.</p>
-                </div>
-                <div class="step">
-                    <i class="fas fa-cogs"></i>
-                    <h3>3. Process</h3>
-                    <p>Our system scrapes and organizes the data, making it easy to set up an LLC in Florida online.</p>
-                </div>
-                <div class="step">
-                    <i class="fas fa-file-download"></i>
-                    <h3>4. Download Results</h3>
-                    <p>Get your comprehensive Excel report, ready for analysis or presentation, including sunbiz search results and Florida LLC formation details.</p>
-                </div>
-            </div>
-            <div class="cta-button">
-                <a href="download.html" class="btn btn-accent">Start Your Free Trial Now</a>
-            </div>
-        </div>
-    </section>
-
-    <section id="video-demo">
-        <div class="container">
-            <h2 class="section-title">See FloridaBiz Scraper in Action</h2>
-            <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-        </div>
-    </section>
-
-    <section id="case-studies">
-        <div class="container">
-            <h2 class="section-title">Case Studies</h2>
-            <div class="case-study">
-                <h3>Legal Firm Streamlines Research</h3>
-                <p>A prominent Florida law firm reduced their research time by 75% using FloridaBiz Scraper, allowing them to take on more clients and increase revenue by managing their sunbiz LLC registration efficiently.</p>
-            </div>
-            <div class="case-study">
-                <h3>Real Estate Company Expands Market Reach</h3>
-                <p>A real estate investment company used our tool to identify potential acquisition targets, resulting in a 30% increase in their property portfolio within 6 months by utilizing sunbiz business search and Florida LLC formation tools.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="faq">
-        <div class="container">
-            <h2 class="section-title">Frequently Asked Questions</h2>
-            <div class="faq-item">
-                <div class="faq-question">Is it legal to scrape data from the Florida business registry?
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">Yes, the information we scrape is publicly available. Our service simply automates the process of collecting this data, including sunbiz LLC registration and Florida LLC filing.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">How often is the data updated?
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">Our system pulls data directly from the Florida business registry in real-time, ensuring you always have the most up-to-date information for your sunbiz registration and Florida LLC formation.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">Can I export the data to other formats besides Excel?
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">Currently, we support Excel exports. If you need other formats, please contact our support team to discuss your requirements for sunbiz business registration and Florida LLC formation.</div>
-            </div>
-        </div>
-    </section>
 
     <section id="testimonials">
         <div class="container">
@@ -824,12 +938,111 @@ img, video, iframe {
         </div>
     </section>
 
+
+
+    <section id="faq">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">How does FloridaBiz Scraper handle nested LLCs?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">Our advanced algorithm automatically tracks through layers of nested LLCs, uncovering the individuals behind complex business structures. It continues searching until it finds the actual person's name, saving you hours of manual research.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Is it legal to use FloridaBiz Scraper to collect data from the Florida business registry?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">Yes, it's completely legal. FloridaBiz Scraper only accesses and collects publicly available information from the SunBiz website. We've designed our tool to comply with all relevant regulations and SunBiz's terms of service.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">How current is the data provided by FloridaBiz Scraper?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">Our system pulls data directly from the SunBiz website in real-time, ensuring you always have the most up-to-date information available. The data's freshness is identical to what you'd find by manually searching on SunBiz.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Can I customize the output format of the data?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">Absolutely! FloridaBiz Scraper offers extensive customization options. You can choose which data fields to include, specify name formats (e.g., "Last Name, First Name" or "First Name Last Name"), customize address formats, and more. The resulting Excel file is formatted for easy reading and analysis.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">How many LLC searches can I perform at once?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">FloridaBiz Scraper can handle thousands of LLC searches simultaneously. The exact number depends on your computer's specifications, but even with a standard setup, you can easily process 5000+ LLCs in a single batch. This massive parallel processing capability is what allows our users to save so much time.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Do I need any technical expertise to use FloridaBiz Scraper?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">Not at all! We've designed FloridaBiz Scraper with a user-friendly interface that anyone can navigate. If you can use Excel, you can use our software. Simply upload your list of LLCs, choose your settings, and let the software do the rest. We also provide comprehensive documentation and customer support to assist you if needed.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Can I export the data to formats other than Excel?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">Currently, our primary export format is Excel (.xlsx) as it's the most versatile for data analysis. However, you can easily convert the Excel file to CSV or other formats using Excel or other spreadsheet software. If you need direct exports to other formats, please contact our support team, and we can discuss custom solutions for your specific needs.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">What kind of customer support do you offer?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">We provide comprehensive customer support to ensure you get the most out of FloridaBiz Scraper. This includes detailed documentation, video tutorials, email support, and live chat during business hours. Our team is committed to helping you streamline your LLC research process.</div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="cta" class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">Revolutionize Your Florida LLC Research Today</h2>
+            <p class="cta-subtitle">Join thousands of professionals saving hours on business intelligence gathering</p>
+            
+            <div class="cta-benefits">
+                <div class="benefit-item">
+                    <i class="fas fa-bolt"></i>
+                    <span>Process 5000+ LLCs in minutes</span>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-search"></i>
+                    <span>Uncover hidden business connections</span>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Save 90% of your research time</span>
+                </div>
+            </div>
+            
+            <div class="cta-offer">
+                <h3>Start Your Free 3-Day Trial Now</h3>
+                <p>No credit card required • Full access to all features • Cancel anytime</p>
+            </div>
+            
+            <a href="download.html" class="btn btn-cta">Get Started Free</a>
+            
+            <div class="cta-testimonial">
+                <p>"FloridaBiz Scraper has transformed our due diligence process. We've tripled our efficiency in just one month!"</p>
+                - Sarah J., Real Estate Investor
+            </div>
+        </div>
+    </section>
+
     <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>About Us</h3>
-                    <p>FloridaBiz Scraper is your trusted partner for automated business research in Florida, specializing in sunbiz LLC registration and Florida LLC filing.</p>
+                    <h3>About FloridaBiz Scraper</h3>
+                    <p>We're revolutionizing Florida LLC research with cutting-edge automation. Join thousands of satisfied professionals who've transformed their workflow with our tool.</p>
                 </div>
                 <div class="footer-section">
                     <h3>Legal</h3>
@@ -854,10 +1067,11 @@ img, video, iframe {
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 FloridaBiz Scraper. All rights reserved. Specializing in sunbiz LLC registration and Florida LLC formation.</p>
+                <p>&copy; 2024 FloridaBiz Scraper. All rights reserved. Empowering professionals with lightning-fast LLC data retrieval.</p>
             </div>
         </div>
     </footer>
+
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
