@@ -100,7 +100,7 @@ nav a {
   transition: color 0.3s ease;
 }
 
-nav a:not(.get-started-btn)::after {
+nav a:not(.download-btn)::after {
   content: '';
   display: block;
   position: absolute;
@@ -112,7 +112,7 @@ nav a:not(.get-started-btn)::after {
   transition: width 0.3s ease;
 }
 
-nav a:not(.get-started-btn):hover::after {
+nav a:not(.download-btn):hover::after {
   width: 100%;
 }
 
@@ -120,7 +120,7 @@ nav a:not(.get-started-btn):hover::after {
   display: inline-block;
   background: var(--primary);
   color: var(--white);
-  padding: 12px 24px;
+  padding: 10px 20px;
   text-decoration: none;
   border-radius: 50px;
   transition: all 0.3s ease;
@@ -135,6 +135,7 @@ nav a:not(.get-started-btn):hover::after {
   background: var(--secondary);
   transform: translateY(-3px);
   box-shadow: 0 6px 12px rgba(59, 130, 246, 0.4);
+  text-decoration: none;
 }
 
 .btn-accent {
@@ -292,7 +293,7 @@ footer a:hover {
       transform: none !important;
   }
 
-  nav ul li a:not(.get-started-btn):hover::after {
+  nav ul li a:not(.download-btn):hover::after {
       width: 100% !important;
   }
 }

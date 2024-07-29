@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" href="appIcon4.png">
     <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script>
     <style>
 
 #hero {
@@ -609,7 +610,7 @@ img, video, iframe {
                 <li><a href="#video-demo">Demo</a></li>
                 <li><a href="#testimonials">Testimonials</a></li>
             </ul>
-            <a href="download.html" class="btn get-started-btn">Get Started</a>
+            <a href="download.html" class="btn download-btn">Download Now</a>
         </nav>
     </header>
 
@@ -833,8 +834,8 @@ img, video, iframe {
                 <div class="footer-section">
                     <h3>Legal</h3>
                     <ul>
-                        <li><a href="#privacy-policy">Privacy Policy</a></li>
-                        <li><a href="#terms-of-service">Terms of Service</a></li>
+                        <li><a href="policy.html#privacy-policy">Privacy Policy</a></li>
+                        <li><a href="policy.html#terms-of-service">Terms of Service</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -859,168 +860,106 @@ img, video, iframe {
     </footer>
 
     <script>
-        document.querySelectorAll('.faq-item').forEach(item => {
-            const question = item.querySelector('.faq-question');
-            const answer = item.querySelector('.faq-answer');
-            const icon = question.querySelector('i');
-
-            question.addEventListener('click', () => {
-                const isOpen = answer.classList.contains('show');
-
-                document.querySelectorAll('.faq-answer.show').forEach(openAnswer => {
-                    if (openAnswer !== answer) {
-                        closeAnswer(openAnswer);
-                    }
-                });
-
-                if (isOpen) {
-                    closeAnswer(answer);
-                } else {
-                    openAnswer(answer);
-                }
-            });
-
-            function openAnswer(answerElement) {
-                answerElement.classList.add('show');
-                answerElement.style.maxHeight = answerElement.scrollHeight + "px";
-                answerElement.closest('.faq-item').querySelector('.faq-question').classList.add('active');
-                answerElement.closest('.faq-item').querySelector('i').style.transform = 'rotate(180deg)';
-            }
-
-            function closeAnswer(answerElement) {
-                answerElement.classList.remove('show');
-                answerElement.style.maxHeight = null;
-                answerElement.closest('.faq-item').querySelector('.faq-question').classList.remove('active');
-                answerElement.closest('.faq-item').querySelector('i').style.transform = 'rotate(0deg)';
-            }
-        });
-
-
-
         document.addEventListener('DOMContentLoaded', function() {
-            const links = document.querySelectorAll('nav ul li a[href^="#"]');
+    const video1 = document.getElementById('hero-video-1');
+    const video2 = document.getElementById('hero-video-2');
 
-            for (const link of links) {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
+    video1.style.opacity = 1;
+    video2.style.opacity = 0;
+    video1.style.transition = 'none';
+    video2.style.transition = 'none';
 
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 60, // Adjust the offset for the fixed header
-                        behavior: 'smooth'
-                    });
-                });
-            }
+    function startVideoLoop() {
+        video1.play();
+        video1.addEventListener('ended', function() {
+            video2.currentTime = 0;
+            video2.play();
+            video1.style.transition = 'opacity 1s ease';
+            video2.style.transition = 'opacity 1s ease';
+            fadeTransition(video1, video2);
+        }, { once: true });
+    }
 
-            const video1 = document.getElementById('hero-video-1');
-            const video2 = document.getElementById('hero-video-2');
+    function fadeTransition(fadeOutVideo, fadeInVideo) {
+        fadeOutVideo.style.opacity = 1;
+        fadeInVideo.style.opacity = 0;
 
-            video1.style.opacity = 1;
-            video2.style.opacity = 0;
-            video1.style.transition = 'none';
-            video2.style.transition = 'none';
+        fadeOutVideo.style.opacity = 0;
+        fadeInVideo.style.opacity = 1;
 
-            function startVideoLoop() {
-                video1.play();
-                video1.addEventListener('ended', function() {
-                    video2.currentTime = 0;
-                    video2.play();
-                    video1.style.transition = 'opacity 1s ease';
-                    video2.style.transition = 'opacity 1s ease';
-                    fadeTransition(video1, video2);
-                }, { once: true });
-            }
+        fadeInVideo.addEventListener('transitionend', function handleTransitionEnd() {
+            fadeInVideo.removeEventListener('transitionend', handleTransitionEnd);
+            fadeOutVideo.currentTime = 0;
+            fadeOutVideo.style.transition = 'none';
+            fadeInVideo.style.transition = 'none';
+            setTimeout(() => {
+                fadeOutVideo.style.transition = 'opacity 1s ease';
+                fadeInVideo.style.transition = 'opacity 1s ease';
+                startNextVideo(fadeInVideo, fadeOutVideo);
+            }, 1000);
+        });
+    }
 
-            function fadeTransition(fadeOutVideo, fadeInVideo) {
-                fadeOutVideo.style.opacity = 1;
-                fadeInVideo.style.opacity = 0;
+    function startNextVideo(currentVideo, nextVideo) {
+        currentVideo.play();
+        currentVideo.addEventListener('ended', function() {
+            nextVideo.currentTime = 0;
+            nextVideo.play();
+            fadeTransition(currentVideo, nextVideo);
+        }, { once: true });
+    }
 
-                // Start the transition
-                fadeOutVideo.style.opacity = 0;
-                fadeInVideo.style.opacity = 1;
+    video1.addEventListener('loadedmetadata', startVideoLoop);
 
-                fadeInVideo.addEventListener('transitionend', function handleTransitionEnd() {
-                    fadeInVideo.removeEventListener('transitionend', handleTransitionEnd);
-                    fadeOutVideo.currentTime = 0;
-                    fadeOutVideo.style.transition = 'none';
-                    fadeInVideo.style.transition = 'none';
-                    setTimeout(() => {
-                        fadeOutVideo.style.transition = 'opacity 1s ease';
-                        fadeInVideo.style.transition = 'opacity 1s ease';
-                        startNextVideo(fadeInVideo, fadeOutVideo);
-                    }, 1000); // Wait a bit before starting the next transition
-                });
-            }
+    video1.addEventListener('error', function(e) {
+        console.error('Error loading video 1:', e);
+    });
 
-            function startNextVideo(currentVideo, nextVideo) {
-                currentVideo.play();
-                currentVideo.addEventListener('ended', function() {
-                    nextVideo.currentTime = 0;
-                    nextVideo.play();
-                    fadeTransition(currentVideo, nextVideo);
-                }, { once: true });
-            }
+    video2.addEventListener('error', function(e) {
+        console.error('Error loading video 2:', e);
+    });
+});
 
-            video1.addEventListener('loadedmetadata', startVideoLoop);
 
-            video1.addEventListener('error', function(e) {
-                console.error('Error loading video 1:', e);
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.faq-item').forEach(item => {
+        const question = item.querySelector('.faq-question');
+        const answer = item.querySelector('.faq-answer');
+        const icon = question.querySelector('i');
+
+        question.addEventListener('click', () => {
+            const isOpen = answer.classList.contains('show');
+
+            document.querySelectorAll('.faq-answer.show').forEach(openAnswer => {
+                if (openAnswer !== answer) {
+                    closeAnswer(openAnswer);
+                }
             });
 
-            video2.addEventListener('error', function(e) {
-                console.error('Error loading video 2:', e);
-            });
+            if (isOpen) {
+                closeAnswer(answer);
+            } else {
+                openAnswer(answer);
+            }
         });
 
+        function openAnswer(answerElement) {
+            answerElement.classList.add('show');
+            answerElement.style.maxHeight = answerElement.scrollHeight + "px";
+            answerElement.closest('.faq-item').querySelector('.faq-question').classList.add('active');
+            answerElement.closest('.faq-item').querySelector('i').style.transform = 'rotate(180deg)';
+        }
 
+        function closeAnswer(answerElement) {
+            answerElement.classList.remove('show');
+            answerElement.style.maxHeight = null;
+            answerElement.closest('.faq-item').querySelector('.faq-question').classList.remove('active');
+            answerElement.closest('.faq-item').querySelector('i').style.transform = 'rotate(0deg)';
+        }
+    });
+});
 
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const navToggle = document.querySelector('.nav-toggle');
-            const navMenu = document.querySelector('.nav-menu');
-            let lastScrollTop = 0;
-            const scrollThreshold = 100;
-
-            navToggle.addEventListener('click', function() {
-                this.classList.toggle('active');
-                navMenu.classList.toggle('show');
-            });
-
-            window.addEventListener('scroll', function() {
-                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                if (window.innerWidth < 769) {
-                    if (scrollTop > lastScrollTop && scrollTop > scrollThreshold) {
-                        document.body.classList.add('scrolling-down');
-                        navToggle.style.display = 'none';
-                        navMenu.classList.remove('show');
-                        navToggle.classList.remove('active');
-                    } else {
-                        document.body.classList.remove('scrolling-down');
-                        navToggle.style.display = 'block';
-                    }
-                }
-                lastScrollTop = scrollTop;
-            });
-
-            navMenu.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A' && window.innerWidth < 769) {
-                    navToggle.classList.remove('active');
-                    navMenu.classList.remove('show');
-                }
-            });
-
-            window.addEventListener('resize', function() {
-                if (window.innerWidth >= 769) {
-                    navToggle.classList.remove('active');
-                    navMenu.classList.remove('show');
-                    // Remove any inline styles that might have been added
-                    navMenu.querySelectorAll('li a').forEach(link => {
-                        link.style.removeProperty('all');
-                    });
-                }
-            });
-        });
 
     </script>
 </body>
